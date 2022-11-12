@@ -48,8 +48,11 @@ foreach (Bank bank in listBank)
         Random random = new Random();
         int rand = random.Next(1, 5000);
         account.Value.Deposit(rand);
+        account.Value.ApplyInterest();
         Console.WriteLine($" le compte numero : {account.Key} appartient a  {account.Value.Owner.FirstName} {account.Value.Owner.LastName} => solde = {account.Value.Balance} $");
     }
 }
+
+
 
 

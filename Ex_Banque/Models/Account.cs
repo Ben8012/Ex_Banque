@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ex_Banque.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,28 +7,30 @@ using System.Threading.Tasks;
 
 namespace Ex_Banque.Models
 {
-    internal abstract class Account 
+    internal abstract class Account : IBanker , ICustomer
     {
         protected Account(string number, double balance, double creditLine, Person owner)
         {
             Number = number;
-            Balance = balance;
+            _balance = balance;
             CreditLine = creditLine;
             Owner = owner;
         }
 
+        private double _balance;
+
         public string Number { get; set; }
-        public double Balance { get; private set; }
+        public double Balance { get => _balance;  }
         public double CreditLine { get; set; }
-        public Person Owner { get; set; }
-        public virtual void Withdraw(double amount)
+        public Person Owner { get;  }
+        public void Withdraw(double amount)
         {
-            Balance -= amount;
+            _balance -= amount;
         }
 
-        public virtual void Deposit(double amount)
+        public void Deposit(double amount)
         {
-            Balance += amount;
+            _balance += amount;
         }
 
 
@@ -35,9 +38,9 @@ namespace Ex_Banque.Models
 
         public void ApplyInterest()
         {
-            Balance += CalculInterets();
+            _balance += CalculInterets();
         }
 
-
+       
     }
 }
