@@ -9,19 +9,19 @@ using System.Threading.Tasks;
 
 namespace Ex_Banque.Models
 {
-    internal class CurrentAccount : Account
+    internal class Current : Account
     {
 
 
-        public CurrentAccount(string number, double balance, double creditLine, Person owner) : base(number, balance, creditLine, owner)
+        public Current(string number, decimal balance, decimal creditLine, Person owner) : base(number, balance, creditLine, owner)
         {
 
         }
-        protected override double CalculInterets()
+        protected override decimal CalculInterets()
         {
             if(Balance >= 0)
-                return  Balance * 0.03;
-            return  Balance * 0.0975;
+                return  (Balance * 0.03M);
+            return  Balance * 0.0975M;
         }
 
     }

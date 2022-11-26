@@ -15,9 +15,9 @@ namespace Ex_Banque.Models
             BirthDate = birthDate;
         }
 
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime BirthDate { get; set; }
+        public string FirstName { get; private set; }
+        public string LastName { get; private set; }
+        public DateTime BirthDate { get; private set; }
     }
     
 }

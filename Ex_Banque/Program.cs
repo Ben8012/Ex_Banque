@@ -5,43 +5,50 @@ List<Person> listPerson = new List<Person>();
 List<Account> listAccount = new List<Account>();
 List<Bank> listBank = new List<Bank>();
 
-for (int i = 0; i < 10; i++)
+try
 {
-    Random random = new Random();
-    int rand = random.Next(1,100);
-    listPerson.Add( new Person($"firstname {i+1}", $"lastname {i+1}",DateTime.Now));
-}
-
-for (int i = 0; i < 10; i++)
-{
-    listAccount.Add(new CurrentAccount($"100{i}", 100, 100, listPerson[i]));
-    listAccount.Add(new Saving($"200{i}", 0
-        , 100, listPerson[i]));
-}
-for (int i = 0; i < 2; i++)
-{
-    listBank.Add(new Bank($"bank {i+1}"));
-}
-
-for (int i = 0; i < listBank.Count; i++)
-{
-    if(i == 0)
+    for (int i = 0; i < 10; i++)
     {
-        for (int j = 0; j < listAccount.Count - listAccount.Count/2; j++)
-        {
-            listBank[i].AddAccount(listAccount[j]);
-        }
-    }
-    if (i == 1)
-    {
-        for (int j = listAccount.Count/2; j < listAccount.Count; j++)
-        {
-            listBank[i].AddAccount(listAccount[j]);
-        }
+        Random random = new Random();
+        int rand = random.Next(1, 100);
+        listPerson.Add(new Person($"firstname {i + 1}", $"lastname {i + 1}", DateTime.Now));
     }
 
+    for (int i = 0; i < 10; i++)
+    {
+        listAccount.Add(new Current($"100{i}", 100, -100, listPerson[i]));
+        listAccount.Add(new Saving($"200{i}", 0, -100, listPerson[i]));
+    }
+    for (int i = 0; i < 2; i++)
+    {
+        listBank.Add(new Bank($"bank {i + 1}"));
+    }
 
+    for (int i = 0; i < listBank.Count; i++)
+    {
+        if (i == 0)
+        {
+            for (int j = 0; j < listAccount.Count - listAccount.Count / 2; j++)
+            {
+                listBank[i].AddAccount(listAccount[j]);
+            }
+        }
+        if (i == 1)
+        {
+            for (int j = listAccount.Count / 2; j < listAccount.Count; j++)
+            {
+                listBank[i].AddAccount(listAccount[j]);
+            }
+        }
+    }
 }
+catch (Exception ex)
+{
+    Console.WriteLine();
+    Console.WriteLine($"Erreur = {ex}");
+    Console.WriteLine();
+}
+
 
 // gestion du visuel dans la console
 Console.WriteLine($"il y a {listBank.Count} banque{(listBank.Count > 1 ? "s" : "")} dans notre liste ");
@@ -52,39 +59,60 @@ Console.WriteLine("----------------------------------");
 AfficherComptes();
 Console.WriteLine("----------------------------------");
 Console.WriteLine();
-Console.WriteLine("J'ajoute une valeur aleatoire comprise entre 1 et 5000 sur tout les comptes de toutes les banques et j'applique les interets");
+Console.WriteLine("J'ajoute une valeur aleatoire comprise entre 1 et 10 sur tout les comptes de toutes les banques et j'applique les interets");
 Console.WriteLine("----------------------------------");
-foreach (Bank bank in listBank)
+try
 {
-    foreach (KeyValuePair<string,Account> account in bank.Accounts)
+    foreach (Bank bank in listBank)
     {
-        Random random = new Random();
-        int rand = random.Next(1, 5000);
-        account.Value.Deposit(rand);
-        account.Value.ApplyInterest();
-       
+        foreach (KeyValuePair<string,Account> account in bank.Accounts)
+        {
+            Random random = new Random();
+            int rand = random.Next(1, 10);
+            account.Value.Deposit(rand);
+            account.Value.ApplyInterest();
+        }
     }
-
+}
+catch (Exception ex)
+{
+    Console.WriteLine();
+    Console.WriteLine( $"Erreur = {ex}" );
+    Console.WriteLine();
 }
 AfficherComptes();
 Console.WriteLine("----------------------------------");
 Console.WriteLine();
-Console.WriteLine("J'enleve une valeur aleatoire comprise entre 1 et 5000 sur un compte sur deux de toutes les banques");
+Console.WriteLine("J'enleve une valeur aleatoire comprise entre 1 et 10 sur un compte sur deux de toutes les banques");
 Console.WriteLine("----------------------------------");
-foreach (Bank bank in listBank)
+try
 {
-    int i = 0;
-    foreach (KeyValuePair<string, Account> account in bank.Accounts)
-    {
-        Random random = new Random();
-        int rand = random.Next(1, 5000);
-        if (i % 2 == 0) account.Value.Withdraw(rand);
-        i++;
-    }
 
+    foreach (Bank bank in listBank)
+    {
+        int i = 0;
+        foreach (KeyValuePair<string, Account> account in bank.Accounts)
+        {
+            Random random = new Random();
+            int rand = random.Next(1, 10);
+            if (i % 2 == 0) account.Value.Withdraw(rand);
+            i++;
+        }
+    }
+   
 }
+catch (Exception ex)
+{
+    Console.WriteLine();
+    Console.WriteLine($"Erreur = {ex}");
+    Console.WriteLine();
+}
+
 AfficherComptes();
-Console.WriteLine();
+Console.WriteLine("-----------------------------------------");
+Console.WriteLine("Fin");
+
+
 void AfficherComptes()
 {   
     foreach (Bank bank in listBank)

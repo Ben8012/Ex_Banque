@@ -8,9 +8,9 @@ namespace Ex_Banque.Interfaces
 {
     internal interface ICustomer
     {
-        double Balance { get;  }
-        void Withdraw(double amount);
-        void Deposit(double amount);
+        decimal Balance { get;  }
+        void Withdraw(decimal amount);
+        void Deposit(decimal amount);
      
     }
 }

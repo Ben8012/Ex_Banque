@@ -9,13 +9,13 @@ namespace Ex_Banque.Models
     internal class Saving : Account
     {
 
-        public Saving(string number, double balance, double creditLine, Person owner) : base(number, balance, creditLine, owner)
+        public Saving(string number, decimal balance, decimal creditLine, Person owner) : base(number, balance, creditLine, owner)
         {
 
         }
-        protected override double CalculInterets()
+        protected override decimal CalculInterets()
         {
-            return  Balance*0.045;
+            return  Balance*0.045M;
         }
     }
 }
