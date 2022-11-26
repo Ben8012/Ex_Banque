@@ -16,8 +16,8 @@ try
 
     for (int i = 0; i < 10; i++)
     {
-        listAccount.Add(new Current($"100{i}", 100, -100, listPerson[i]));
-        listAccount.Add(new Saving($"200{i}", 0, -100, listPerson[i]));
+        listAccount.Add(new Current($"100{i}", 100, 100, listPerson[i]));
+        listAccount.Add(new Saving($"200{i}", 0, 100, listPerson[i]));
     }
     for (int i = 0; i < 2; i++)
     {
@@ -59,16 +59,18 @@ Console.WriteLine("----------------------------------");
 AfficherComptes();
 Console.WriteLine("----------------------------------");
 Console.WriteLine();
-Console.WriteLine("J'ajoute une valeur aleatoire comprise entre 1 et 10 sur tout les comptes de toutes les banques et j'applique les interets");
+Console.WriteLine("J'ajoute une valeur aleatoire comprise entre 1 et 100 sur tout les comptes de toutes les banques et j'applique les interets");
 Console.WriteLine("----------------------------------");
+string numDep = string.Empty;
 try
 {
     foreach (Bank bank in listBank)
     {
         foreach (KeyValuePair<string,Account> account in bank.Accounts)
         {
+            numDep+= account.Key;
             Random random = new Random();
-            int rand = random.Next(1, 10);
+            int rand = random.Next(1, 100);
             account.Value.Deposit(rand);
             account.Value.ApplyInterest();
         }
@@ -77,14 +79,15 @@ try
 catch (Exception ex)
 {
     Console.WriteLine();
-    Console.WriteLine( $"Erreur = {ex}" );
+    Console.WriteLine($"Erreur sur le compte numero {numDep} = {ex}");
     Console.WriteLine();
 }
 AfficherComptes();
 Console.WriteLine("----------------------------------");
 Console.WriteLine();
-Console.WriteLine("J'enleve une valeur aleatoire comprise entre 1 et 10 sur un compte sur deux de toutes les banques");
+Console.WriteLine("J'enleve une valeur aleatoire comprise entre 1 et 1000 sur un compte sur deux de toutes les banques");
 Console.WriteLine("----------------------------------");
+string numDraw = string.Empty;
 try
 {
 
@@ -93,10 +96,12 @@ try
         int i = 0;
         foreach (KeyValuePair<string, Account> account in bank.Accounts)
         {
+            numDraw = account.Key;
             Random random = new Random();
-            int rand = random.Next(1, 10);
+            int rand = random.Next(1, 1000);
             if (i % 2 == 0) account.Value.Withdraw(rand);
             i++;
+            
         }
     }
    
@@ -104,7 +109,7 @@ try
 catch (Exception ex)
 {
     Console.WriteLine();
-    Console.WriteLine($"Erreur = {ex}");
+    Console.WriteLine($"Erreur sur le compte numero {numDraw} = {ex}");
     Console.WriteLine();
 }
 
